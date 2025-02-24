@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,15 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'prescription')->name('dashboard');
-Route::redirect('/dashboard', 'prescription')->name('dashboard');
+Route::get('/', function () {
+    return redirectBasedOnRole();
+})->name('dashboard');
 
-// Route::get('/dashboard', function () {
-//     return view('customer.create');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return redirectBasedOnRole();
+})->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::resource('prescription', PrescriptionController::class);
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::resource('pharmacy', PharmacyController::class);
 });
 
 Route::middleware('auth')->group(function () {
@@ -31,5 +37,23 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+function redirectBasedOnRole()
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return redirect('/login');
+    }
+
+    // Redirect based on roles
+    switch ($user->role) {
+        case 'admin':
+            return redirect('/pharmacy');
+        case 'user':
+            return redirect('/prescription');
+    }
+}
 
 require __DIR__ . '/auth.php';
