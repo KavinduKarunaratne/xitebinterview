@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mx-auto p-4">
+    {{-- <div class="container mx-auto p-4">
         <h1 class="text-2xl font-semibold mb-6">Prescription Orders</h1>
         
         <table class="min-w-full table-auto border-collapse bg-white shadow-md rounded-lg overflow-hidden">
@@ -42,34 +42,30 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> --}}
 
-    {{-- <div class="container">
-        <h1>Prescription Orders</h1>
+    <div class="container">
+        <h1 class="text-2xl font-semibold mb-6">Prescription Orders</h1>
         
-        <table class="table">
+        <table class="min-w-full table-auto border-collapse bg-white shadow-md rounded-lg overflow-hidden">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Patient Name</th>
-                    <th>Prescription Details</th>
-                    <th>Order Date</th>
-                    <th>Action</th>
+                <tr class="bg-gray-200 text-left">
+                    <th class="px-4 py-2 text-sm font-medium text-gray-700">#</th>
+                    <th class="px-4 py-2 text-sm font-medium text-gray-700">Order Date</th>
+                    <th class="px-4 py-2 text-sm font-medium text-gray-700">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($prescriptions as $prescription)
-                    <tr>
-                        <td>{{ $prescription->id }}</td>
-                        <td>{{ $prescription->patient_name }}</td>
-                        <td>{{ $prescription->details }}</td>
-                        <td>{{ $prescription->created_at->format('d-m-Y') }}</td>
-                        <td>
-                            <a href="{{ route('pharmacy.show', $prescription->id) }}" class="btn btn-primary">View</a>
+                    <tr class="border-t border-b">
+                        <td class="px-4 py-2 text-sm text-gray-700">{{ $prescription->id }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-700">{{ $prescription->created_at->format('d-m-Y') }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-700">
+                            <a href="{{ route('pharmacy.show', $prescription->id) }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg">View</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </div> --}}
+    </div>
 </x-app-layout>

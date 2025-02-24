@@ -7,6 +7,7 @@
                     <div class="border p-4 flex flex-col items-center">
                         <div class="w-64 h-64 bg-gray-200 flex items-center justify-center mb-4">
                             <span>Prescription (Image)</span>
+                            <img src="{{ asset('../storage/app/public/' . $prescription->file_path) }}" alt="Uploaded Image" style="max-width: 500px;">
                         </div>
                     </div>
                 </div>

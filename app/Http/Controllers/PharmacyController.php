@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class PharmacyController extends Controller
@@ -13,7 +14,8 @@ class PharmacyController extends Controller
      */
     public function index()
     {
-        return view('customer.index');
+        $prescriptions = Prescription::all();
+        return view('customer.index', compact('prescriptions'));
     }
 
     /**
@@ -43,9 +45,9 @@ class PharmacyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Prescription $prescription)
     {
-        return view('customer.show');
+        return view('customer.show', compact('prescription'));
     }
 
     /**
