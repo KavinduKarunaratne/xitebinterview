@@ -18,7 +18,7 @@
             </div>
         @endif
         
-        <form action="#" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form action="{{ route('prescription.store')}}" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="mb-4">
                 <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Choose Image:</label>
